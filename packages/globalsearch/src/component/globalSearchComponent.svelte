@@ -1,4 +1,9 @@
 <script>
-  export let globalSearchStore;
+  import { globalSearchStore } from '../store/gsstore';
+
+  let GSObj,
+    unSubscribe = globalSearchStore.subscribe(value =>{
+      GSObj = value;
+    });
 </script>
-Search Across Grid: <input  bind:value={globalSearchStore.defaultGlobalSearchString}/>
+Search Across Grid: <input  bind:value={GSObj.searchString}/>
