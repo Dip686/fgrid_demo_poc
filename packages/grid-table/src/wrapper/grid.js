@@ -1,4 +1,4 @@
-// import { globalSearchStore } from '../store/gsstore';
+import { gridStore } from '../store/gridstore';
 import { get } from 'svelte/store';
 import  GlobalComponent  from '../component/GlobalComponet.svelte';
 
@@ -7,10 +7,10 @@ export default class Grid {
 		this.state = {};
 	}
 	getStore () {
-		console.log(get(globalSearchStore));
+		console.log(get(gridStore));
 	}
 	setStore (obj) {
-		globalSearchStore.set(obj);
+		gridStore.set(obj);
 	}
 	render() {
 		let GSObj = new GlobalComponent({
