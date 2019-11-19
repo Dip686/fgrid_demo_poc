@@ -575,17 +575,15 @@ var GridTable = (function () {
     	}
     }
 
-    // import { globalSearchStore } from '../store/gsstore';
-
     class Grid {
     	constructor(config) {
     		this.state = {};
     	}
     	getStore () {
-    		console.log(get_store_value(globalSearchStore));
+    		console.log(get_store_value(gridStore));
     	}
     	setStore (obj) {
-    		globalSearchStore.set(obj);
+    		gridStore.set(obj);
     	}
     	render() {
     		let GSObj = new GlobalComponet({
