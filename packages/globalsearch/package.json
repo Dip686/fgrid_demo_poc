@@ -11,7 +11,9 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "src",
+    "index.mjs",
+    "index.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -21,7 +23,15 @@
     "url": "git+https://github.com/Dip686/fgrid_demo_poc.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "rollup": "^1.11.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-svelte": "^5.0.0",
+    "svelte": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/Dip686/fgrid_demo_poc/issues"
