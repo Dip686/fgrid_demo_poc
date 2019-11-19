@@ -354,7 +354,7 @@
     	render() {
     		let GSObj = new GlobalSearchComponent({
     			props: {},
-    			target: document.body
+    			target: document.getElementsByClassName('search-container')[0]
     		});
     	}
     }
