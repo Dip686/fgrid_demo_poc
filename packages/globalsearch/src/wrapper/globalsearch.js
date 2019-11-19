@@ -10,7 +10,7 @@ export default class globalSearchWrapper {
 		console.log(get(globalSearchStore));
 	}
 	setStore (obj) {
-		globalSearchStore.set(obj);
+		globalSearchStore.set({...get(globalSearchStore), ...obj});
 	}
 	render() {
 		let GSObj = new GlobalSearchComponent({

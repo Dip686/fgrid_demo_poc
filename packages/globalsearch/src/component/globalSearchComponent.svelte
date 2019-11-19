@@ -6,4 +6,15 @@
       GSObj = value;
     });
 </script>
-Search Across Grid: <input  bind:value={GSObj.searchString}/>
+<style>
+.warn-input {
+  border-color: red
+}
+.success-input {
+  border-color: green
+}
+.default-input {
+  border-color: black
+}
+</style>
+Search Across Grid: <input class={GSObj.className} bind:value={GSObj.searchString}/>
