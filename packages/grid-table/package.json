@@ -1,0 +1,26 @@
+{
+  "name": "grid-table",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "= <=>",
+  "homepage": "https://github.com/Dip686/fgrid_demo_poc#readme",
+  "license": "ISC",
+  "main": "lib/grid-table.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dip686/fgrid_demo_poc.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Dip686/fgrid_demo_poc/issues"
+  }
+}
