@@ -13,7 +13,7 @@ export default class globalSearchWrapper {
 		globalSearchStore.set({...get(globalSearchStore), ...obj});
 	}
 	render() {
-		let GSObj = new GlobalSearchComponent({
+		this._app = new GlobalSearchComponent({
 			props: {},
 			target: document.getElementsByClassName('search-container')[0]
 		});

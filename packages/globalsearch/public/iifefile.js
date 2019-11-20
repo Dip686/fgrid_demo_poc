@@ -63,10 +63,34 @@ var Globalsearch = (function () {
             input.value = value;
         }
     }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
 
     let current_component;
     function set_current_component(component) {
         current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function createEventDispatcher() {
+        const component = get_current_component();
+        return (type, detail) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail);
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+            }
+        };
     }
 
     const dirty_components = [];
@@ -318,7 +342,11 @@ var Globalsearch = (function () {
     			t = text("Search Across Grid: ");
     			input = element("input");
     			attr(input, "class", input_class_value = "" + (null_to_empty(ctx.GSObj.className) + " svelte-1b8yoo7"));
-    			dispose = listen(input, "input", ctx.input_input_handler);
+
+    			dispose = [
+    				listen(input, "input", ctx.input_input_handler),
+    				listen(input, "input", ctx.dispatchEvents)
+    			];
     		},
     		m(target, anchor) {
     			insert(target, t, anchor);
@@ -339,23 +367,32 @@ var Globalsearch = (function () {
     		d(detaching) {
     			if (detaching) detach(t);
     			if (detaching) detach(input);
-    			dispose();
+    			run_all(dispose);
     		}
     	};
     }
 
     function instance($$self, $$props, $$invalidate) {
     	let GSObj,
+    		dispatcher = createEventDispatcher(),
     		unSubscribe = globalSearchStore.subscribe(value => {
     			$$invalidate("GSObj", GSObj = value);
     		});
+
+    	function dispatchEvents(e) {
+    		dispatcher("contentChanged", e.target.value);
+    	}
 
     	function input_input_handler() {
     		GSObj.searchString = this.value;
     		$$invalidate("GSObj", GSObj);
     	}
 
-    	return { GSObj, input_input_handler };
+    	return {
+    		GSObj,
+    		dispatchEvents,
+    		input_input_handler
+    	};
     }
 
     class GlobalSearchComponent extends SvelteComponent {
@@ -377,7 +414,7 @@ var Globalsearch = (function () {
     		globalSearchStore.set({...get_store_value(globalSearchStore), ...obj});
     	}
     	render() {
-    		let GSObj = new GlobalSearchComponent({
+    		this._app = new GlobalSearchComponent({
     			props: {},
     			target: document.getElementsByClassName('search-container')[0]
     		});
