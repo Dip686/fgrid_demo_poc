@@ -31,7 +31,7 @@
     "rollup": "^1.11.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-svelte": "^5.0.0",
-    "svelte": "^3.0.0"
+    "svelte": "^3.49.0"
   },
   "bugs": {
     "url": "https://github.com/Dip686/fgrid_demo_poc/issues"
